@@ -30,6 +30,8 @@ onready var _animation_player := $AnimationPlayer
 func _ready()->void:
 	_mine_direction_handler.enable(false)
 	_animation_player.play("Idle")
+	flip_v = false
+	rotate(0)
 
 
 func _on_MineDirectionHandler_mine_direction_changed(direction:Vector2)->void:
@@ -38,15 +40,22 @@ func _on_MineDirectionHandler_mine_direction_changed(direction:Vector2)->void:
 	match _mine_direction:
 		Vector2.UP:
 			flip_v = true
+			rotate(0.0)
 		Vector2.DOWN:
 			flip_v = false
+			rotate(0.0)
 		Vector2.RIGHT:
-			set_rotation(3/4*PI)
+			flip_v = true
+			rotate(1.57)
 		Vector2.LEFT:
-			set_rotation(1/2*PI)
+			flip_v = false
+			rotate(1.57)
 	_drill()
 	_deselect()
 
+
+func rotate(value:float)->void:
+	material.set_shader_param("direction", value)
 
 func _drill()->void:
 	_animation_player.play("Drilling")
@@ -62,16 +71,12 @@ func move()->void:
 	match _mine_direction:
 		Vector2.UP:
 			offset.y -= 32
-			flip_v = true
 		Vector2.DOWN:
 			offset.y += 32
-			flip_v = false
 		Vector2.RIGHT:
 			offset.x += 32
-			set_rotation(3/4*PI)
 		Vector2.LEFT:
 			offset.x -= 32
-			set_rotation(1/2*PI)
 	var left_margin := margin_left
 	var right_margin := margin_right
 	var bottom_margin := margin_bottom
