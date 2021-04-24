@@ -12,6 +12,7 @@ signal selection_state_changed(selected)
 
 # variables
 var _ignore
+var _enabled := true
 var _hovered := false
 var selected := false
 
@@ -24,6 +25,8 @@ func _ready()->void:
 
 
 func _on_mouse_state_changed(entered:bool)->void:
+	if not _enabled:
+		return
 	if entered:
 		_hovered = true
 		SelectionManager.hovered = self

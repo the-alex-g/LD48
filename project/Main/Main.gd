@@ -21,8 +21,8 @@ func _ready()->void:
 	_tile_map.generate_map(air_at_top)
 
 
-func _on_Drill_drill(location:Vector2, drill:Drill)->void:
-	var map_location:Vector2 = _tile_map.mine(location)
+func _on_Drill_drill(location:Vector2, drill:Drill, speed:float)->void:
+	var map_location:Vector2 = _tile_map.mine(location, speed)
 	_drill_locations[map_location] = drill
 
 

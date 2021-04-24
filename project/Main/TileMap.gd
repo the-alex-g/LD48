@@ -33,22 +33,22 @@ func _ready()->void:
 	_screensize_as_cells = _screensize/CELL_SIZE
 
 
-func mine(mining_position:Vector2)->Vector2:
+func mine(mining_position:Vector2, speed:float)->Vector2:
 	var tile_position = world_to_map(mining_position)
-	_advance_tile(tile_position)
+	_advance_tile(tile_position, speed)
 	return tile_position
 
 
-func _advance_tile(tile_position:Vector2)->void:
+func _advance_tile(tile_position:Vector2, speed:float)->void:
 	var tile = get_cellv(tile_position)
 	if TILE_PROGRESSION.has(tile):
 		var next_tile:int = TILE_PROGRESSION[tile]
 		set_cellv(tile_position, next_tile)
 		if BREAKING_TILES.has(tile):
-			_start_break_timer(tile, tile_position, next_tile)
+			_start_break_timer(tile, tile_position, next_tile, speed)
 
 
-func _start_break_timer(tile:int, tile_position:Vector2, next_tile:int, speed:float = 4)->void:
+func _start_break_timer(tile:int, tile_position:Vector2, next_tile:int, speed:float)->void:
 	var path:String = BREAKING_TILES_LOAD_PATHS[tile]
 	var animated_tile:AnimatedTexture = load(path)
 	var anim_length:float = animated_tile.frames/animated_tile.fps/2/speed

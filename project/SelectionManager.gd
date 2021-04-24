@@ -21,7 +21,6 @@ func _input(event:InputEvent)->void:
 		return
 	elif event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == BUTTON_LEFT and selected == null:
-			print("SELECTED")
 			selected = hovered
 			selected.selected = true
 			selected.emit_signal("selection_state_changed", true)
