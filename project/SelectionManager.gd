@@ -26,7 +26,10 @@ func _input(event:InputEvent)->void:
 			selected.selected = true
 			selected.emit_signal("selection_state_changed", true)
 		elif event.button_index == BUTTON_RIGHT:
-			print("DESELECTED")
-			selected.selected = false
-			selected.emit_signal("selection_state_changed", false)
-			selected = null
+			deselect()
+
+
+func deselect()->void:
+	selected.selected = false
+	selected.emit_signal("selection_state_changed", false)
+	selected = null

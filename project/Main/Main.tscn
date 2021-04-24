@@ -23,7 +23,9 @@ format = 1
 script = ExtResource( 2 )
 
 [node name="Drill" parent="." instance=ExtResource( 4 )]
-margin_left = 103.45
-margin_top = 67.4093
-margin_right = 135.45
-margin_bottom = 99.4093
+margin_left = 32.0
+margin_top = 64.0
+margin_right = 64.0
+margin_bottom = 96.0
+[connection signal="tile_destroyed" from="TileMap" to="." method="_on_TileMap_tile_destroyed"]
+[connection signal="drill" from="Drill" to="." method="_on_Drill_drill"]

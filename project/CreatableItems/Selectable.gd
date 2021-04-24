@@ -30,3 +30,8 @@ func _on_mouse_state_changed(entered:bool)->void:
 	else:
 		_hovered = false
 		SelectionManager.hovered = null
+
+
+func _deselect()->void:
+	if selected:
+		SelectionManager.deselect()

@@ -1,6 +1,7 @@
 extends TileMap
 
 # signals
+signal tile_destroyed(tile_position)
 
 # enums
 
@@ -32,9 +33,10 @@ func _ready()->void:
 	_screensize_as_cells = _screensize/CELL_SIZE
 
 
-func mine(mining_position:Vector2)->void:
+func mine(mining_position:Vector2)->Vector2:
 	var tile_position = world_to_map(mining_position)
 	_advance_tile(tile_position)
+	return tile_position
 
 
 func _advance_tile(tile_position:Vector2)->void:
@@ -53,13 +55,16 @@ func _start_break_timer(tile:int, tile_position:Vector2, next_tile:int, speed:fl
 	tile_set.tile_get_texture(next_tile).set_current_frame(0)
 	var timer := Timer.new()
 	timer.wait_time = anim_length
-	_ignore = timer.connect("timeout", self, "_on_BreakTimer_timeout", [tile_position])
+	_ignore = timer.connect("timeout", self, "_on_BreakTimer_timeout", [tile_position, timer])
 	add_child(timer)
 	timer.start()
 
 
-func _on_BreakTimer_timeout(tile_position:Vector2)->void:
+func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
+	timer.stop()
+	timer.queue_free()
 	set_cellv(tile_position, EMPTY_UNDERGROUND_TILE)
+	emit_signal("tile_destroyed", tile_position)
 
 
 func generate_map(below:int = 0)->void:
