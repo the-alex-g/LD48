@@ -31,10 +31,14 @@ margin_right = 64.0
 margin_bottom = 96.0
 
 [node name="ItemList" parent="." instance=ExtResource( 5 )]
-items = [ "Building", null, false, "Statue", null, false ]
+margin_right = 289.0
 
 [node name="ItemArea" parent="." instance=ExtResource( 6 )]
+
+[node name="SmeltTimer" type="Timer" parent="."]
+autostart = true
 [connection signal="tile_destroyed" from="TileMap" to="." method="_on_TileMap_tile_destroyed"]
 [connection signal="drill" from="Drill" to="." method="_on_Drill_drill"]
 [connection signal="drop_item" from="ItemList" to="." method="_on_ItemList_drop_item"]
 [connection signal="check_position" from="ItemArea" to="." method="_on_ItemArea_check_position"]
+[connection signal="timeout" from="SmeltTimer" to="." method="_on_SmeltTimer_timeout"]

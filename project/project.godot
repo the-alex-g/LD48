@@ -33,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SelectionManager="*res://SelectionManager.gd"
+ResourceManager="*res://ResourceManager.gd"
 
 [display]
 

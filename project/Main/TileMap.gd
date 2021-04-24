@@ -8,29 +8,44 @@ signal tile_destroyed
 # constants
 const TILE_PROGRESSION := {
 	0:2,
+	7:8,
+	9:10,
 }
 const BREAKING_TILES := [
-	0,
+	0, 7, 9,
 ]
 const BREAKING_TILES_LOAD_PATHS := {
 	0:"res://AnimatedTiles/DirtTileBreak.tres",
+	7:"res://AnimatedTiles/GoldTileBreak.tres",
+	9:"res://AnimatedTiles/IronTileBreak.tres",
 }
 const EMPTY_UNDERGROUND_TILE := 1
 const CELL_SIZE := 32
 const NAME_TO_TILE_ABV := {
 	"Building":3,
 	"Statue":5,
+	"Gold Smelter":12,
+	"Iron Smelter":14
 }
 const NAME_TO_TILE_BLW := {
 	"Building":4,
-	"Statue":6
+	"Statue":6,
+	"Gold Smelter":11,
+	"Iron Smelter":13,
 }
 const UNDERGROUND_DEPENDENT_TILES := [
-	4, 6,
+	4, 6, 11, 13
 ]
 const ABOVEGROUND_DEPENDENT_TILES := [
-	3, 5,
+	3, 5, 12, 14
 ]
+const TILES_TO_RESOURCES := {
+	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"]
+}
+const GROUND_TILES := [0, 0, 0, 0, 0, 0, 7, 9, 9,]
+const TILES_WORTH_CROWNS := {4:1, 5:1, 6:1, 3:1, 11:-1, 12:-1, 13:-1, 14:-1,}
+const GOLD_SMELTERS := [11, 12]
+const IRON_SMELTERS := [13, 14]
 # 0: dirt tile 1: empty underground tile 2: breaking dirt tile
 # exported variables
 
@@ -43,6 +58,7 @@ var _screensize_as_cells := Vector2.ZERO
 
 
 func _ready()->void:
+	randomize()
 	_screensize = get_viewport_rect().size
 	_screensize_as_cells = _screensize/CELL_SIZE
 
@@ -76,14 +92,25 @@ func _start_break_timer(tile:int, tile_position:Vector2, next_tile:int, speed:fl
 
 
 func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
+	# get rid of the timer
 	timer.stop()
 	timer.queue_free()
+	# check if the tile yeilds resources
+	if TILES_TO_RESOURCES.has(get_cellv(tile_position)):
+		var resources:Array = TILES_TO_RESOURCES[get_cellv(tile_position)]
+		for resource in resources:
+			ResourceManager.set(resource, ResourceManager.get(resource)+1)
+	# blank out the cell
 	set_cellv(tile_position, EMPTY_UNDERGROUND_TILE)
+	# check if the cell above is a droppable item
 	var cell_above := tile_position+Vector2.UP
 	if UNDERGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
 		set_cellv(cell_above, EMPTY_UNDERGROUND_TILE)
 	elif ABOVEGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
 		set_cellv(cell_above, -1)
+	if TILES_WORTH_CROWNS.has(get_cellv(cell_above)):
+		ResourceManager.crowns -= TILES_WORTH_CROWNS[get_cellv(cell_above)]
+	# emit the signal
 	emit_signal("tile_destroyed")
 
 
@@ -94,7 +121,9 @@ func generate_map(below:int = 0)->void:
 	for column in generation_range_x:
 		column += start_generating_at
 		for row in generation_range_y:
-			set_cell(row, column, 0)
+			var tile_index = randi()%GROUND_TILES.size()
+			var tile:int = GROUND_TILES[tile_index]
+			set_cell(row, column, tile)
 
 
 func check_position(points:PoolVector2Array)->bool:
@@ -110,9 +139,27 @@ func check_position(points:PoolVector2Array)->bool:
 
 func place(item_name:String, location:Vector2)->void:
 	var tile_location := world_to_map(location)
+	var tile := 0
 	if get_cellv(tile_location) == EMPTY_UNDERGROUND_TILE:
-		var tile:int = NAME_TO_TILE_BLW[item_name]
-		set_cellv(tile_location, tile)
+		tile = NAME_TO_TILE_BLW[item_name]
 	else:
-		var tile:int = NAME_TO_TILE_ABV[item_name]
-		set_cellv(tile_location, tile)
+		tile = NAME_TO_TILE_ABV[item_name]
+	set_cellv(tile_location, tile)
+	if TILES_WORTH_CROWNS.has(tile):
+		ResourceManager.crowns += TILES_WORTH_CROWNS[tile]
+	var resources_needed:Dictionary = ResourceManager.RESOURCES_TO_BUILD[item_name]
+	for resource in resources_needed:
+		ResourceManager.set(resource, ResourceManager.get(resource)-resources_needed[resource])
+
+
+func check_smelters()->void:
+	var used_tiles := get_used_cells()
+	for tile in used_tiles:
+		if GOLD_SMELTERS.has(tile):
+			if ResourceManager.gold_ore > 0:
+				ResourceManager.gold_ore -= 1
+				ResourceManager.gold += 1
+		if IRON_SMELTERS.has(tile):
+			if ResourceManager.iron_ore > 0:
+				ResourceManager.iron_ore -= 1
+				ResourceManager.iron += 1

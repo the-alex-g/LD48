@@ -44,3 +44,7 @@ func _on_ItemArea_check_position(points:PoolVector2Array)->void:
 	if is_okay:
 		_tile_map.place(_pending_item, points[0])
 		_item_patch.done()
+
+
+func _on_SmeltTimer_timeout()->void:
+	_tile_map.check_smelters()
