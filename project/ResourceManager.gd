@@ -10,6 +10,7 @@ const RESOURCES_TO_BUILD := {
 	"Statue":{"stone":1},
 	"Gold Smelter":{"stone":2, "gold_ore":1},
 	"Iron Smelter":{"stone":2, "iron_ore":1},
+	"City":{"stone":8, "iron":4, "gold":2},
 }
 
 # exported variables

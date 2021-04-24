@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://CreatableItems/itemList.gd" type="Script" id=1]
 [ext_resource path="res://Art/House.png" type="Texture" id=2]
 [ext_resource path="res://Art/Statue.png" type="Texture" id=3]
 [ext_resource path="res://Art/GoldSmelter/GoldSmelter1.png" type="Texture" id=4]
 [ext_resource path="res://Art/IronSmelter/IronSmelter0.png" type="Texture" id=5]
+[ext_resource path="res://Art/City/City.png" type="Texture" id=6]
 
 [node name="ItemList" type="ItemList"]
 anchor_right = 1.0
 margin_right = -178.0
 margin_bottom = 42.0
-items = [ "Building", ExtResource( 2 ), false, "Statue", ExtResource( 3 ), false, "Gold Smelter", ExtResource( 4 ), false, "Iron Smelter", ExtResource( 5 ), false ]
+items = [ "Building", ExtResource( 2 ), false, "Statue", ExtResource( 3 ), false, "Gold Smelter", ExtResource( 4 ), false, "Iron Smelter", ExtResource( 5 ), false, "City", ExtResource( 6 ), false ]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
