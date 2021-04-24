@@ -17,6 +17,20 @@ const BREAKING_TILES_LOAD_PATHS := {
 }
 const EMPTY_UNDERGROUND_TILE := 1
 const CELL_SIZE := 32
+const NAME_TO_TILE_ABV := {
+	"Building":3,
+	"Statue":5,
+}
+const NAME_TO_TILE_BLW := {
+	"Building":4,
+	"Statue":6
+}
+const UNDERGROUND_DEPENDENT_TILES := [
+	4, 6,
+]
+const ABOVEGROUND_DEPENDENT_TILES := [
+	3, 5,
+]
 # 0: dirt tile 1: empty underground tile 2: breaking dirt tile
 # exported variables
 
@@ -65,6 +79,11 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 	timer.stop()
 	timer.queue_free()
 	set_cellv(tile_position, EMPTY_UNDERGROUND_TILE)
+	var cell_above := tile_position+Vector2.UP
+	if UNDERGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
+		set_cellv(cell_above, EMPTY_UNDERGROUND_TILE)
+	elif ABOVEGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
+		set_cellv(cell_above, -1)
 	emit_signal("tile_destroyed")
 
 
@@ -77,3 +96,23 @@ func generate_map(below:int = 0)->void:
 		for row in generation_range_y:
 			set_cell(row, column, 0)
 
+
+func check_position(points:PoolVector2Array)->bool:
+	for point in points:
+		var point_on_map := world_to_map(point)
+		var tile := get_cellv(point_on_map)
+		if tile != -1 and tile != EMPTY_UNDERGROUND_TILE:
+			return false
+		if get_cellv(point_on_map+Vector2(0,1)) == EMPTY_UNDERGROUND_TILE:
+			return false
+	return true
+
+
+func place(item_name:String, location:Vector2)->void:
+	var tile_location := world_to_map(location)
+	if get_cellv(tile_location) == EMPTY_UNDERGROUND_TILE:
+		var tile:int = NAME_TO_TILE_BLW[item_name]
+		set_cellv(tile_location, tile)
+	else:
+		var tile:int = NAME_TO_TILE_ABV[item_name]
+		set_cellv(tile_location, tile)

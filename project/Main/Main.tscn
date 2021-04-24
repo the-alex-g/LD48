@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/TileMap.gd" type="Script" id=2]
 [ext_resource path="res://Tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://CreatableItems/Drill.tscn" type="PackedScene" id=4]
+[ext_resource path="res://CreatableItems/itemList.tscn" type="PackedScene" id=5]
+[ext_resource path="res://CreatableItems/ItemArea.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -27,5 +29,12 @@ margin_left = 32.0
 margin_top = 64.0
 margin_right = 64.0
 margin_bottom = 96.0
+
+[node name="ItemList" parent="." instance=ExtResource( 5 )]
+items = [ "Building", null, false, "Statue", null, false ]
+
+[node name="ItemArea" parent="." instance=ExtResource( 6 )]
 [connection signal="tile_destroyed" from="TileMap" to="." method="_on_TileMap_tile_destroyed"]
 [connection signal="drill" from="Drill" to="." method="_on_Drill_drill"]
+[connection signal="drop_item" from="ItemList" to="." method="_on_ItemList_drop_item"]
+[connection signal="check_position" from="ItemArea" to="." method="_on_ItemArea_check_position"]

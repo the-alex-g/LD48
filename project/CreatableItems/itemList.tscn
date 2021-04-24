@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://CreatableItems/itemList.gd" type="Script" id=1]
+
+[node name="ItemList" type="ItemList"]
+margin_right = 102.0
+margin_bottom = 40.0
+items = [ "Building", null, false, "Statue", null, false ]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="item_selected" from="." to="." method="_on_ItemList_item_selected"]
