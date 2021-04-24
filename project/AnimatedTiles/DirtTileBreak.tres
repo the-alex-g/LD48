@@ -10,6 +10,7 @@
 
 [resource]
 frames = 7
+oneshot = true
 frame_0/texture = ExtResource( 7 )
 frame_1/texture = ExtResource( 6 )
 frame_1/delay_sec = 0.0

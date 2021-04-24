@@ -8,19 +8,36 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Selectable",
+"class": "Drill",
+"language": "GDScript",
+"path": "res://CreatableItems/Drill.gd"
+}, {
+"base": "TextureRect",
+"class": "Selectable",
+"language": "GDScript",
+"path": "res://CreatableItems/Selectable.gd"
+} ]
 _global_script_class_icons={
-
+"Drill": "",
+"Selectable": ""
 }
 
 [application]
 
-config/name="NewProject"
-run/main_scene="res://Main.tscn"
+config/name="LD48"
+run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+SelectionManager="*res://SelectionManager.gd"
 
 [display]
 
+window/size/width=288
+window/size/height=288
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
