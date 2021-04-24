@@ -8,6 +8,7 @@ signal tile_destroyed(tile_position)
 # constants
 const TILE_PROGRESSION := {
 	0:2,
+	1:1,
 }
 const BREAKING_TILES := [
 	0,

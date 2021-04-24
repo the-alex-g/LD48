@@ -24,20 +24,32 @@ var _mine_direction := Vector2.ZERO
 onready var _mine_location:Position2D = $MineDown
 onready var _mine_direction_handler := $MineDirectionHandler
 onready var _tween := $Tween
+onready var _animation_player := $AnimationPlayer
 
 
 func _ready()->void:
 	_mine_direction_handler.enable(false)
+	_animation_player.play("Idle")
 
 
 func _on_MineDirectionHandler_mine_direction_changed(direction:Vector2)->void:
 	_mine_location = get_node(DRILL_LOCATIONS[direction])
 	_mine_direction = direction
+	match _mine_direction:
+		Vector2.UP:
+			flip_v = true
+		Vector2.DOWN:
+			flip_v = false
+		Vector2.RIGHT:
+			set_rotation(3/4*PI)
+		Vector2.LEFT:
+			set_rotation(1/2*PI)
 	_drill()
 	_deselect()
 
 
 func _drill()->void:
+	_animation_player.play("Drilling")
 	emit_signal("drill", _mine_location.get_global_transform().origin, self, speed)
 
 
@@ -50,12 +62,16 @@ func move()->void:
 	match _mine_direction:
 		Vector2.UP:
 			offset.y -= 32
+			flip_v = true
 		Vector2.DOWN:
 			offset.y += 32
+			flip_v = false
 		Vector2.RIGHT:
 			offset.x += 32
+			set_rotation(3/4*PI)
 		Vector2.LEFT:
 			offset.x -= 32
+			set_rotation(1/2*PI)
 	var left_margin := margin_left
 	var right_margin := margin_right
 	var bottom_margin := margin_bottom
@@ -69,4 +85,5 @@ func move()->void:
 
 
 func _on_Tween_tween_all_completed():
+	_animation_player.play("Idle")
 	_enabled = true
