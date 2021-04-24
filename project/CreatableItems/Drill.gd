@@ -58,8 +58,9 @@ func rotate(value:float)->void:
 	material.set_shader_param("direction", value)
 
 func _drill()->void:
+	enable(false)
 	_animation_player.play("Drilling")
-	emit_signal("drill", _mine_location.get_global_transform().origin, self, speed)
+	emit_signal("drill", _mine_location.get_global_transform().origin, speed)
 
 
 func _on_Drill_selection_state_changed(selected:bool)->void:
@@ -81,7 +82,6 @@ func move()->void:
 	var right_margin := margin_right
 	var bottom_margin := margin_bottom
 	var top_margin := margin_top
-	_enabled = false
 	_tween.interpolate_property(self, "margin_left", null, left_margin+offset.x, 1.0)
 	_tween.interpolate_property(self, "margin_right", null, right_margin+offset.x, 1.0)
 	_tween.interpolate_property(self, "margin_top", null, top_margin+offset.y, 1.0)
@@ -91,4 +91,4 @@ func move()->void:
 
 func _on_Tween_tween_all_completed():
 	_animation_player.play("Idle")
-	_enabled = true
+	enable(true)

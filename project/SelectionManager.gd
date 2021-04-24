@@ -12,12 +12,15 @@ extends Node
 var _ignore
 var hovered:Selectable = null
 var selected:Selectable = null
+var can_be_selected := true
 
 # onready variables
 
 
 func _input(event:InputEvent)->void:
 	if hovered == null and selected == null:
+		return
+	if not can_be_selected:
 		return
 	elif event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == BUTTON_LEFT and selected == null:

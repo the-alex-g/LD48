@@ -2,6 +2,7 @@ class_name Selectable
 extends TextureRect
 
 # signals
+# warning-ignore:unused_signal
 signal selection_state_changed(selected)
 
 # enums
@@ -25,8 +26,6 @@ func _ready()->void:
 
 
 func _on_mouse_state_changed(entered:bool)->void:
-	if not _enabled:
-		return
 	if entered:
 		_hovered = true
 		SelectionManager.hovered = self
@@ -38,3 +37,8 @@ func _on_mouse_state_changed(entered:bool)->void:
 func _deselect()->void:
 	if selected:
 		SelectionManager.deselect()
+
+
+func enable(value:bool)->void:
+	_enabled = value
+	SelectionManager.can_be_selected = value
