@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://CreatableItems/itemList.gd" type="Script" id=1]
 [ext_resource path="res://Art/House.png" type="Texture" id=2]
@@ -6,11 +6,45 @@
 [ext_resource path="res://Art/GoldSmelter/GoldSmelter1.png" type="Texture" id=4]
 [ext_resource path="res://Art/IronSmelter/IronSmelter0.png" type="Texture" id=5]
 [ext_resource path="res://Art/City/City.png" type="Texture" id=6]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.670588, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.368627, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.670588, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.305882, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="ItemList" type="ItemList"]
 anchor_right = 1.0
-margin_right = -178.0
+margin_right = -150.0
 margin_bottom = 42.0
+custom_styles/selected_focus = SubResource( 1 )
+custom_styles/bg_focus = SubResource( 2 )
+custom_styles/selected = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+custom_fonts/font = ExtResource( 7 )
 items = [ "Building", ExtResource( 2 ), false, "Statue", ExtResource( 3 ), false, "Gold Smelter", ExtResource( 4 ), false, "Iron Smelter", ExtResource( 5 ), false, "City", ExtResource( 6 ), false ]
 script = ExtResource( 1 )
 __meta__ = {

@@ -128,14 +128,15 @@ func generate_map(below:int = 0)->void:
 			set_cell(row, column, tile)
 
 
-func check_position(points:PoolVector2Array)->bool:
+func check_position(points:Array)->bool:
 	for point in points:
 		var point_on_map := world_to_map(point)
 		var tile := get_cellv(point_on_map)
 		if tile != -1 and tile != EMPTY_UNDERGROUND_TILE:
 			return false
 		if get_cellv(point_on_map+Vector2(0,1)) == EMPTY_UNDERGROUND_TILE:
-			return false
+			if not points.has(point+Vector2(0,32)):
+				return false
 	return true
 
 
