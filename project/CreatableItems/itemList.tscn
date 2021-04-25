@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://CreatableItems/itemList.gd" type="Script" id=1]
 [ext_resource path="res://Art/House.png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Art/City/City.png" type="Texture" id=6]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Art/Farm.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.305882, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.670588, 0, 0, 1 )
@@ -41,6 +44,7 @@ corner_radius_bottom_left = 5
 anchor_right = 1.0
 margin_right = -150.0
 margin_bottom = 42.0
+custom_styles/cursor = SubResource( 5 )
 custom_styles/selected_focus = SubResource( 1 )
 custom_styles/bg_focus = SubResource( 2 )
 custom_styles/selected = SubResource( 3 )

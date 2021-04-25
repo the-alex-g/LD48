@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main/ResourceDisplay.gd" type="Script" id=1]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=2]
@@ -9,13 +9,40 @@
 [ext_resource path="res://Art/Icons/Stone.png" type="Texture" id=7]
 [ext_resource path="res://Art/Icons/Dirt.png" type="Texture" id=8]
 [ext_resource path="res://Art/Icons/Crown.png" type="Texture" id=9]
+[ext_resource path="res://Art/Icons/Pop.Tire.png" type="Texture" id=10]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.305882, 0, 0, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.46, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="ResourceDisplay" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="Panel" type="Panel" parent="."]
+margin_left = 25.0
+margin_top = 48.0
+margin_right = 263.0
+margin_bottom = 73.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="IronIngots" type="Sprite" parent="."]
 position = Vector2( 44, 60 )
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="IronLabel" type="Label" parent="IronIngots"]
 margin_left = -5.0
@@ -32,8 +59,11 @@ __meta__ = {
 }
 
 [node name="GoldIngots" type="Sprite" parent="."]
-position = Vector2( 77.7999, 60 )
+position = Vector2( 72, 60 )
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="GoldLabel" type="Label" parent="GoldIngots"]
 margin_left = -5.0
@@ -51,8 +81,11 @@ __meta__ = {
 }
 
 [node name="GoldOre" type="Sprite" parent="."]
-position = Vector2( 114.6, 60 )
+position = Vector2( 101, 60 )
 texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="GoldOreLabel" type="Label" parent="GoldOre"]
 margin_left = -5.0
@@ -69,8 +102,11 @@ __meta__ = {
 }
 
 [node name="IronOre" type="Sprite" parent="."]
-position = Vector2( 148.102, 60 )
+position = Vector2( 129, 60 )
 texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="IronOreLabel" type="Label" parent="IronOre"]
 margin_left = -5.0
@@ -87,8 +123,11 @@ __meta__ = {
 }
 
 [node name="Stone" type="Sprite" parent="."]
-position = Vector2( 181.922, 60 )
+position = Vector2( 158, 60 )
 texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="StoneLabel" type="Label" parent="Stone"]
 margin_left = -5.0
@@ -105,8 +144,11 @@ __meta__ = {
 }
 
 [node name="Dirt" type="Sprite" parent="."]
-position = Vector2( 214.032, 60 )
+position = Vector2( 186, 60 )
 texture = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="DirtLabel" type="Label" parent="Dirt"]
 margin_left = -5.0
@@ -122,9 +164,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Pop" type="Sprite" parent="."]
+position = Vector2( 215, 60 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Poplabel" type="Label" parent="Pop"]
+margin_left = -5.0
+margin_top = -8.0
+margin_right = 6.0
+margin_bottom = 9.0
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
 [node name="Crowns" type="Sprite" parent="."]
 position = Vector2( 244, 60 )
 texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CrownLabel" type="Label" parent="Crowns"]
 margin_left = -5.0

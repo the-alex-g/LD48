@@ -50,6 +50,10 @@ const GROUND_TILES := [0, 0, 0, 0, 0, 0, 7, 9, 9,]
 const TILES_WORTH_CROWNS := {4:1, 5:2, 6:2, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
 const GOLD_SMELTERS := [11, 12]
 const IRON_SMELTERS := [13, 14]
+const FARMS := [17, 18]
+const BUILDINGS := [3, 4]
+const CITY := [16, 15]
+const CELLS_ABOVE_TO_CHECK := [Vector2.UP, Vector2.LEFT+Vector2.UP]
 # 0: dirt tile 1: empty underground tile 2: breaking dirt tile
 # exported variables
 
@@ -107,13 +111,33 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 	# blank out the cell
 	set_cellv(tile_position, EMPTY_UNDERGROUND_TILE)
 	# check if the cell above is a droppable item
-	var cell_above := tile_position+Vector2.UP
-	if UNDERGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
-		set_cellv(cell_above, EMPTY_UNDERGROUND_TILE)
-	elif ABOVEGROUND_DEPENDENT_TILES.has(get_cellv(cell_above)):
-		set_cellv(cell_above, -1)
-	if TILES_WORTH_CROWNS.has(get_cellv(cell_above)):
-		ResourceManager.crowns -= TILES_WORTH_CROWNS[get_cellv(cell_above)]
+	for cell in CELLS_ABOVE_TO_CHECK:
+		var new_cell:Vector2 = tile_position+cell
+		var tile := get_cellv(new_cell)
+		if (GOLD_SMELTERS.has(tile) or IRON_SMELTERS.has(tile)) or cell == Vector2.UP:
+			if UNDERGROUND_DEPENDENT_TILES.has(tile):
+				set_cellv(new_cell, EMPTY_UNDERGROUND_TILE)
+			elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
+				set_cellv(new_cell, -1)
+			if TILES_WORTH_CROWNS.has(tile):
+				ResourceManager.crowns -= TILES_WORTH_CROWNS[tile]
+			if FARMS.has(tile):
+				ResourceManager.food -= 1
+				ResourceManager.population += 1
+			if BUILDINGS.has(tile):
+				ResourceManager.population -= 1
+	var tile := get_cellv(tile_position+Vector2(0,-2))
+	if CITY.has(tile):
+		if UNDERGROUND_DEPENDENT_TILES.has(tile):
+			set_cellv(tile_position+Vector2(0,-2), EMPTY_UNDERGROUND_TILE)
+		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
+			set_cellv(tile_position+Vector2(0,-2), -1)
+	tile = get_cellv(tile_position+Vector2(-1,-2))
+	if CITY.has(tile):
+		if UNDERGROUND_DEPENDENT_TILES.has(tile):
+			set_cellv(tile_position+Vector2(-1,-2), EMPTY_UNDERGROUND_TILE)
+		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
+			set_cellv(tile_position+Vector2(-1,-2), -1)
 	# emit the signal
 	emit_signal("tile_destroyed")
 
@@ -136,8 +160,15 @@ func check_position(points:Array)->bool:
 		var tile := get_cellv(point_on_map)
 		if tile != -1 and tile != EMPTY_UNDERGROUND_TILE:
 			return false
-		if get_cellv(point_on_map+Vector2(0,1)) == EMPTY_UNDERGROUND_TILE:
-			if not points.has(point+Vector2(0,32)):
+		if get_cellv(point_on_map+Vector2(0,1)) == EMPTY_UNDERGROUND_TILE and not points.has(point+Vector2(0,32)):
+			return false
+		elif points.has(Vector2(0, 32)):
+			if get_cellv(point_on_map+Vector2(0,2)) == EMPTY_UNDERGROUND_TILE:
+				return false
+			if get_cellv(point_on_map+Vector2(1,2)) == EMPTY_UNDERGROUND_TILE:
+				return false
+		elif points.has(Vector2(32,0)):
+			if get_cellv(point_on_map+Vector2(1,1)) == EMPTY_UNDERGROUND_TILE:
 				return false
 	return true
 
@@ -152,8 +183,6 @@ func place(item_name:String, location:Vector2)->void:
 	set_cellv(tile_location, tile)
 	if TILES_WORTH_CROWNS.has(tile):
 		ResourceManager.crowns += TILES_WORTH_CROWNS[tile]
-		print(TILES_WORTH_CROWNS[tile])
-		print(tile)
 	var resources_needed:Dictionary = ResourceManager.RESOURCES_TO_BUILD[item_name]
 	for resource in resources_needed:
 		ResourceManager.set(resource, ResourceManager.get(resource)-resources_needed[resource])

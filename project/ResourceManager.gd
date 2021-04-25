@@ -27,10 +27,12 @@ var stone := 0
 var base_crowns := 0
 var crowns := 0
 var population := 1
+var modifier := 0
 var food := 0
 
 # onready variables
 
 
 func _process(_delta:float)->void:
-	base_crowns = (crowns/max(population,1))*max(food,1)
+	modifier = max(max(population,1)/max(food,1), 1)
+	base_crowns = crowns/modifier
