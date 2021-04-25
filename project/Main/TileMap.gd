@@ -152,17 +152,41 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 
 
 func generate_map(below:int = 0)->void:
-	var generation_range_x := _screensize_as_cells.x-below
+	var generation_range_x := _screensize_as_cells.x-below-1
 	var generation_range_y := _screensize_as_cells.y
 	var start_generating_at := below
+	var gold := 0
+	var iron := 0
+	# randomly generate tiles
 	for column in generation_range_x:
-		column += start_generating_at
+		column += start_generating_at+1
 		for row in generation_range_y:
 			var tile_index = randi()%GROUND_TILES.size()
 			var tile:int = GROUND_TILES[tile_index]
-			if column == start_generating_at:
-				tile = 19
+			if tile == 7:
+				gold += 1
+			elif tile == 9:
+				iron += 1
 			set_cell(row, column, tile)
+	# make sure there is at least 5 gold and 5 iron
+	while iron < 5 and gold < 5:
+		while iron < 5:
+			print("NOT ENOUGH IRON "+str(iron))
+			var x = randi()%int(generation_range_x-1)
+			x += start_generating_at+1
+			var y = randi()%9
+			set_cell(y,x,9)
+			iron += 1
+		while gold < 5:
+			print("NOT ENOUGH GOLD "+str(gold))
+			var x = randi()%int(generation_range_x-1)
+			x += start_generating_at+1
+			var y = randi()%9
+			set_cell(y,x,7)
+			gold += 1
+	# add the layer of grass tiles on top
+	for cell in generation_range_y:
+		set_cell(cell, start_generating_at, 19)
 
 
 func check_position(points:Array)->bool:
