@@ -10,14 +10,16 @@ const TILE_PROGRESSION := {
 	0:2,
 	7:8,
 	9:10,
+	19:20,
 }
 const BREAKING_TILES := [
-	0, 7, 9,
+	0, 7, 9, 19,
 ]
 const BREAKING_TILES_LOAD_PATHS := {
 	0:"res://AnimatedTiles/DirtTileBreak.tres",
 	7:"res://AnimatedTiles/GoldTileBreak.tres",
 	9:"res://AnimatedTiles/IronTileBreak.tres",
+	19:"res://AnimatedTiles/GrassTileBreaking.tres",
 }
 const EMPTY_UNDERGROUND_TILE := 1
 const CELL_SIZE := 32
@@ -90,7 +92,7 @@ func _advance_tile(tile_position:Vector2, speed:float)->void:
 func _start_break_timer(tile:int, tile_position:Vector2, next_tile:int, speed:float)->void:
 	var path:String = BREAKING_TILES_LOAD_PATHS[tile]
 	var animated_tile:AnimatedTexture = load(path)
-	var anim_length:float = animated_tile.frames/animated_tile.fps/2/speed
+	var anim_length:float = animated_tile.frames/animated_tile.fps/speed
 	tile_set.tile_get_texture(next_tile).set_current_frame(0)
 	var timer := Timer.new()
 	timer.wait_time = anim_length
@@ -151,6 +153,8 @@ func generate_map(below:int = 0)->void:
 		for row in generation_range_y:
 			var tile_index = randi()%GROUND_TILES.size()
 			var tile:int = GROUND_TILES[tile_index]
+			if column == start_generating_at:
+				tile = 19
 			set_cell(row, column, tile)
 
 
