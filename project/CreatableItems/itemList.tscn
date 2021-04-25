@@ -9,6 +9,8 @@
 [ext_resource path="res://Font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Art/Farm.png" type="Texture" id=8]
 
+
+
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.305882, 0, 0, 1 )
 
