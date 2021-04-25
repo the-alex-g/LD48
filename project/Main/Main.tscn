@@ -142,11 +142,10 @@ one_shot = true
 autostart = true
 
 [node name="GameOver" parent="." instance=ExtResource( 16 )]
-visible = false
-margin_left = 142.722
-margin_top = 145.442
-margin_right = 142.722
-margin_bottom = 145.442
+margin_left = 144.0
+margin_top = 160.0
+margin_right = 144.0
+margin_bottom = 160.0
 [connection signal="tile_destroyed" from="TileMap" to="." method="_on_TileMap_tile_destroyed"]
 [connection signal="drill" from="Drill" to="." method="_on_Drill_drill"]
 [connection signal="drop_item" from="ItemList" to="." method="_on_ItemList_drop_item"]
