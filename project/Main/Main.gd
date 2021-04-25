@@ -29,6 +29,8 @@ func _ready()->void:
 	var drill_position := (randi()%9)*32
 	_drill.margin_left = drill_position
 	_drill.margin_right = drill_position+32
+	_game_over.visible = false
+	_info.visible = false
 
 
 func _input(event:InputEvent)->void:

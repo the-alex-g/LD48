@@ -142,6 +142,7 @@ one_shot = true
 autostart = true
 
 [node name="GameOver" parent="." instance=ExtResource( 16 )]
+visible = false
 margin_left = 144.0
 margin_top = 160.0
 margin_right = 144.0
