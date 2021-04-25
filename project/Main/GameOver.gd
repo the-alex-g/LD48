@@ -31,8 +31,10 @@ func update_display()->void:
 func _on_PlayAgain_pressed()->void:
 	yield(get_tree().create_timer(0.2),"timeout")
 	_ignore = get_tree().change_scene("res://Main/Main.tscn")
+	ResourceManager.reset()
 
 
 func _on_MainMenu_pressed():
 	yield(get_tree().create_timer(0.2),"timeout")
 	_ignore = get_tree().change_scene("res://Main/MainMenu.tscn")
+	ResourceManager.reset()
