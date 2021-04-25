@@ -50,3 +50,17 @@ func _process(_delta:float)->void:
 func save_high()->void:
 	config.set_value("save", "highscore", high_score)
 	_ignore = config.save(CONFIG_PATH)
+
+
+func reset()->void:
+	gold = 0
+	gold_ore = 0
+	iron = 0
+	iron_ore = 0
+	dirt = 0
+	stone = 0
+	population = 1
+	food = 0
+	base_crowns = 0
+	crowns = 0
+	modifier = 0
