@@ -12,11 +12,16 @@ export var air_at_top := 3
 # variables
 var _ignore
 var _pending_item := ""
+var _info_shown := false
+var _time_left_on_pause := 0
 
 # onready variables
 onready var _tile_map := $TileMap
 onready var _drill := $Drill
 onready var _item_patch := $ItemArea
+onready var _info := $Panel
+onready var _game_timer := $GameTimer
+onready var _game_over := $GameOver
 
 
 func _ready()->void:
@@ -24,6 +29,17 @@ func _ready()->void:
 	var drill_position := (randi()%9)*32
 	_drill.margin_left = drill_position
 	_drill.margin_right = drill_position+32
+
+
+func _input(event:InputEvent)->void:
+	if not event.is_pressed():
+		return
+	if event is InputEventKey and event.is_pressed():
+		pass
+
+
+func _process(_delta:float)->void:
+	$Label.text = str(ceil(_game_timer.time_left))
 
 
 func _on_Drill_drill(location:Vector2, speed:float)->void:
@@ -48,3 +64,22 @@ func _on_ItemArea_check_position(points:PoolVector2Array)->void:
 
 func _on_SmeltTimer_timeout()->void:
 	_tile_map.check_smelters()
+
+
+func _on_Info_pressed():
+	if _info_shown:
+		_info_shown = false
+		_info.hide()
+		_time_left_on_pause = _game_timer.time_left
+		_game_timer.stop()
+	else:
+		_info_shown = true
+		_info.show()
+		_game_timer.start(_time_left_on_pause)
+
+
+func _on_GameTimer_timeout()->void:
+	_game_timer.stop()
+	yield(get_tree().create_timer(1), "timeout")
+	_game_over.visible = true
+	_game_over.update_display()

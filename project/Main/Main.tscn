@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/TileMap.gd" type="Script" id=2]
@@ -8,6 +8,23 @@
 [ext_resource path="res://CreatableItems/ItemArea.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main/ResourceDisplay.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Art/Sky.png" type="Texture" id=8]
+[ext_resource path="res://Music/Collapse.wav" type="AudioStream" id=9]
+[ext_resource path="res://Music/BuildingCollapse.wav" type="AudioStream" id=10]
+[ext_resource path="res://GODOFWAR.TTF" type="DynamicFontData" id=11]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Main/Pressed.tres" type="StyleBox" id=13]
+[ext_resource path="res://Main/Hover.tres" type="StyleBox" id=14]
+[ext_resource path="res://Main/Normal.tres" type="StyleBox" id=15]
+[ext_resource path="res://Main/GameOver.tscn" type="PackedScene" id=16]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.294118, 0, 0, 0.588235 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 13
+outline_size = 1
+outline_color = Color( 0.294118, 0, 0, 1 )
+font_data = ExtResource( 11 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,6 +42,13 @@ cell_size = Vector2( 32, 32 )
 format = 1
 script = ExtResource( 2 )
 
+[node name="Collapse" type="AudioStreamPlayer" parent="TileMap"]
+stream = ExtResource( 9 )
+volume_db = 6.0
+
+[node name="BCollapse" type="AudioStreamPlayer" parent="TileMap"]
+stream = ExtResource( 10 )
+
 [node name="Drill" parent="." instance=ExtResource( 4 )]
 margin_left = 32.0
 margin_top = 64.0
@@ -41,8 +65,85 @@ wait_time = 3.0
 autostart = true
 
 [node name="ResourceDisplay" parent="." instance=ExtResource( 7 )]
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+margin_right = 292.0
+margin_bottom = 293.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel"]
+margin_right = 292.0
+margin_bottom = 294.0
+custom_fonts/normal_font = SubResource( 2 )
+text = "COSTS:
+
+Building: costs 1 clay 
+ gives 1 crown and 1 population
+Statue: costs 2 stone
+ gives 2 crowns
+Farm: costs 1 clay and 1 population
+ gives 1 food
+Gold Smelter: costs 2 stone and 1 gold 
+ ore
+ -1 crown, turns gold ore into gold 
+ ingots
+Iron Smelter: costs 2 stone and 1 iron
+  ore
+ -1 crown, turns iron ore into iron
+ ingots
+City: costs 4 iron igots and 4 gold
+ ingots and 8 stone
+ gives 6 crowns and 2 population
+
+If you dig out from under a building, the building will collapse.
+The resource icons from left to right: Iron ingots, gold ingots, gold ore, iron ore, clay, stone, dissaproval rating, crowns.
+
+The higher the disapproval rating is, the fewer crowns you get."
+
+[node name="Info" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 270.0
+margin_top = 260.0
+margin_right = 280.0
+margin_bottom = 280.0
+custom_styles/hover = ExtResource( 14 )
+custom_styles/pressed = ExtResource( 13 )
+custom_styles/normal = ExtResource( 15 )
+custom_fonts/font = ExtResource( 12 )
+text = "I"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 126.508
+margin_top = 79.7354
+margin_right = 166.508
+margin_bottom = 93.7354
+custom_fonts/font = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" parent="." instance=ExtResource( 16 )]
+visible = false
+margin_left = 142.722
+margin_top = 145.442
+margin_right = 142.722
+margin_bottom = 145.442
 [connection signal="tile_destroyed" from="TileMap" to="." method="_on_TileMap_tile_destroyed"]
 [connection signal="drill" from="Drill" to="." method="_on_Drill_drill"]
 [connection signal="drop_item" from="ItemList" to="." method="_on_ItemList_drop_item"]
 [connection signal="check_position" from="ItemArea" to="." method="_on_ItemArea_check_position"]
 [connection signal="timeout" from="SmeltTimer" to="." method="_on_SmeltTimer_timeout"]
+[connection signal="pressed" from="Info" to="." method="_on_Info_pressed"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]

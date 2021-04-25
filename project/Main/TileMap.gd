@@ -46,7 +46,7 @@ const ABOVEGROUND_DEPENDENT_TILES := [
 	3, 5, 12, 14, 15, 18
 ]
 const TILES_TO_RESOURCES := {
-	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"]
+	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"], 20:["dirt"],
 }
 const GROUND_TILES := [0, 0, 0, 0, 0, 7, 9, 9,]
 const TILES_WORTH_CROWNS := {4:1, 5:2, 6:2, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
@@ -65,6 +65,8 @@ var _screensize := Vector2.ZERO
 var _screensize_as_cells := Vector2.ZERO
 
 # onready variables
+onready var _b_collapse := $BCollapse
+onready var _collapse := $Collapse
 
 
 func _ready()->void:
@@ -105,6 +107,7 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 	# get rid of the timer
 	timer.stop()
 	timer.queue_free()
+	_collapse.play()
 	# check if the tile yeilds resources
 	if TILES_TO_RESOURCES.has(get_cellv(tile_position)):
 		var resources:Array = TILES_TO_RESOURCES[get_cellv(tile_position)]
@@ -119,8 +122,10 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 		if (GOLD_SMELTERS.has(tile) or IRON_SMELTERS.has(tile)) or cell == Vector2.UP:
 			if UNDERGROUND_DEPENDENT_TILES.has(tile):
 				set_cellv(new_cell, EMPTY_UNDERGROUND_TILE)
+				_b_collapse.play()
 			elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
 				set_cellv(new_cell, -1)
+				_b_collapse.play()
 			if TILES_WORTH_CROWNS.has(tile):
 				ResourceManager.crowns -= TILES_WORTH_CROWNS[tile]
 			if FARMS.has(tile):
@@ -134,12 +139,14 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 			set_cellv(tile_position+Vector2(0,-2), EMPTY_UNDERGROUND_TILE)
 		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
 			set_cellv(tile_position+Vector2(0,-2), -1)
+		_b_collapse.play()
 	tile = get_cellv(tile_position+Vector2(-1,-2))
 	if CITY.has(tile):
 		if UNDERGROUND_DEPENDENT_TILES.has(tile):
 			set_cellv(tile_position+Vector2(-1,-2), EMPTY_UNDERGROUND_TILE)
 		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
 			set_cellv(tile_position+Vector2(-1,-2), -1)
+		_b_collapse.play()
 	# emit the signal
 	emit_signal("tile_destroyed")
 
