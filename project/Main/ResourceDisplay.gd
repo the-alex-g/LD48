@@ -28,5 +28,5 @@ func _process(_delta:float)->void:
 	_gold_label.text = str(ResourceManager.gold)
 	_gold_ore_label.text = str(ResourceManager.gold_ore)
 	_stone_label.text = str(ResourceManager.stone)
-	_crown_label.text = str(ResourceManager.crowns)
+	_crown_label.text = str(ResourceManager.base_crowns)
 

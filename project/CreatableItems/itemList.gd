@@ -11,7 +11,8 @@ const ITEM_AREA := {
 	"Statue":Vector2(1,1),
 	"Gold Smelter":Vector2(2,1),
 	"Iron Smelter": Vector2(2,1),
-	"City":Vector2(2,2)
+	"City":Vector2(2,2),
+	"Farm":Vector2(1,1)
 }
 
 # exported variables

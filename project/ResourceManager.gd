@@ -11,6 +11,7 @@ const RESOURCES_TO_BUILD := {
 	"Gold Smelter":{"stone":2, "gold_ore":1},
 	"Iron Smelter":{"stone":2, "iron_ore":1},
 	"City":{"stone":8, "iron":4, "gold":4},
+	"Farm":{"dirt":1, "population":1}
 }
 
 # exported variables
@@ -23,7 +24,13 @@ var iron_ore := 0
 var iron := 0
 var gold := 0
 var stone := 0
+var base_crowns := 0
 var crowns := 0
+var population := 1
+var food := 0
 
 # onready variables
 
+
+func _process(_delta:float)->void:
+	base_crowns = (crowns/max(population,1))*max(food,1)

@@ -27,25 +27,27 @@ const NAME_TO_TILE_ABV := {
 	"Gold Smelter":12,
 	"Iron Smelter":14,
 	"City":15,
+	"Farm":18,
 }
 const NAME_TO_TILE_BLW := {
 	"Building":4,
 	"Statue":6,
 	"Gold Smelter":11,
 	"Iron Smelter":13,
-	"City":16
+	"City":16,
+	"Farm":17,
 }
 const UNDERGROUND_DEPENDENT_TILES := [
-	4, 6, 11, 13, 16
+	4, 6, 11, 13, 16, 17
 ]
 const ABOVEGROUND_DEPENDENT_TILES := [
-	3, 5, 12, 14, 15
+	3, 5, 12, 14, 15, 18
 ]
 const TILES_TO_RESOURCES := {
 	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"]
 }
 const GROUND_TILES := [0, 0, 0, 0, 0, 0, 7, 9, 9,]
-const TILES_WORTH_CROWNS := {4:1, 5:1, 6:1, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
+const TILES_WORTH_CROWNS := {4:1, 5:2, 6:2, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
 const GOLD_SMELTERS := [11, 12]
 const IRON_SMELTERS := [13, 14]
 # 0: dirt tile 1: empty underground tile 2: breaking dirt tile
@@ -150,9 +152,15 @@ func place(item_name:String, location:Vector2)->void:
 	set_cellv(tile_location, tile)
 	if TILES_WORTH_CROWNS.has(tile):
 		ResourceManager.crowns += TILES_WORTH_CROWNS[tile]
+		print(TILES_WORTH_CROWNS[tile])
+		print(tile)
 	var resources_needed:Dictionary = ResourceManager.RESOURCES_TO_BUILD[item_name]
 	for resource in resources_needed:
 		ResourceManager.set(resource, ResourceManager.get(resource)-resources_needed[resource])
+		if item_name == "Building":
+			ResourceManager.population += 1
+		if item_name == "Farm":
+			ResourceManager.food += 1
 
 
 func check_smelters()->void:
