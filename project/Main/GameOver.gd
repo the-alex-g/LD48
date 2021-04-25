@@ -34,6 +34,7 @@ func _on_PlayAgain_pressed()->void:
 	yield(get_tree().create_timer(0.2),"timeout")
 	_ignore = get_tree().change_scene("res://Main/Main.tscn")
 	ResourceManager.reset()
+	SelectionManager.reset()
 
 
 func _on_MainMenu_pressed():

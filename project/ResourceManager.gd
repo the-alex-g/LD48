@@ -37,9 +37,7 @@ var config := ConfigFile.new()
 
 
 func _ready()->void:
-	var err := config.load(CONFIG_PATH)
-	if err == OK:
-		high_score = config.get_value("save", "highscore", 0)
+	load_high()
 
 
 func _process(_delta:float)->void:
@@ -50,6 +48,12 @@ func _process(_delta:float)->void:
 func save_high(new_high:int = high_score)->void:
 	config.set_value("save", "highscore", new_high)
 	_ignore = config.save(CONFIG_PATH)
+
+
+func load_high()->void:
+	var err := config.load(CONFIG_PATH)
+	if err == OK:
+		high_score = config.get_value("save", "highscore", 0)
 
 
 func reset()->void:
@@ -64,3 +68,4 @@ func reset()->void:
 	base_crowns = 0
 	crowns = 0
 	modifier = 0
+	load_high()
