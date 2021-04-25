@@ -48,7 +48,7 @@ const ABOVEGROUND_DEPENDENT_TILES := [
 const TILES_TO_RESOURCES := {
 	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"]
 }
-const GROUND_TILES := [0, 0, 0, 0, 0, 0, 7, 9, 9,]
+const GROUND_TILES := [0, 0, 0, 0, 0, 7, 9, 9,]
 const TILES_WORTH_CROWNS := {4:1, 5:2, 6:2, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
 const GOLD_SMELTERS := [11, 12]
 const IRON_SMELTERS := [13, 14]

@@ -1,7 +1,48 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Art/Sky.png" type="Texture" id=2]
+[ext_resource path="res://Art/Drill0.png" type="Texture" id=3]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.168627, 0, 0, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.294118, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.4, 0, 0, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.294118, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.294118, 0, 0, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.13, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -19,4 +60,41 @@ centered = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 131078, 18, 0, 196608, 7, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 196614, 0, 0, 196615, 9, 0, 196616, 0, 0, 262144, 0, 0, 262145, 9, 0, 262146, 9, 0, 262147, 0, 0, 262148, 1, 0, 262149, 0, 0, 262150, 0, 0, 262151, 9, 0, 262152, 7, 0, 327680, 0, 0, 327681, 0, 0, 327682, 9, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 393216, 7, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 7, 0, 393221, 0, 0, 393222, 0, 0, 393223, 7, 0, 393224, 0, 0, 458752, 0, 0, 458753, 9, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 9, 0, 458759, 0, 0, 458760, 0, 0, 524288, 0, 0, 524289, 9, 0, 524290, 0, 0, 524291, 9, 0, 524292, 0, 0, 524293, 7, 0, 524294, 9, 0, 524295, 9, 0, 524296, 0, 0 )
+tile_data = PoolIntArray( 131074, 3, 0, 131078, 18, 0, 196608, 19, 0, 196609, 19, 0, 196610, 19, 0, 196611, 19, 0, 196612, 1, 0, 196613, 19, 0, 196614, 19, 0, 196615, 19, 0, 196616, 19, 0, 262144, 0, 0, 262145, 9, 0, 262146, 9, 0, 262147, 0, 0, 262148, 1, 0, 262149, 0, 0, 262150, 0, 0, 262151, 9, 0, 262152, 7, 0, 327680, 0, 0, 327681, 0, 0, 327682, 9, 0, 327683, 1, 0, 327684, 1, 0, 327685, 6, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 393216, 7, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 7, 0, 393221, 0, 0, 393222, 0, 0, 393223, 7, 0, 393224, 0, 0, 458752, 0, 0, 458753, 9, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 9, 0, 458759, 0, 0, 458760, 0, 0, 524288, 0, 0, 524289, 9, 0, 524290, 0, 0, 524291, 9, 0, 524292, 0, 0, 524293, 7, 0, 524294, 9, 0, 524295, 9, 0, 524296, 0, 0 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 95.9631, 159.755 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.5
+margin_top = -25.0
+margin_right = 38.5
+margin_bottom = 25.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+margin_right = 77.0
+margin_bottom = 27.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 4 )
+text = "Play"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+margin_top = 31.0
+margin_right = 77.0
+margin_bottom = 58.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 4 )
+text = "Credits"
