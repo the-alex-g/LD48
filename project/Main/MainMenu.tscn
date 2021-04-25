@@ -86,16 +86,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -38.5
-margin_top = -25.0
-margin_right = 38.5
-margin_bottom = 25.0
+margin_left = -88.5
+margin_top = -51.0
+margin_right = 88.5
+margin_bottom = 51.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Play" type="Button" parent="VBoxContainer"]
-margin_right = 77.0
+margin_right = 177.0
 margin_bottom = 27.0
 custom_styles/hover = ExtResource( 9 )
 custom_styles/pressed = ExtResource( 8 )
@@ -105,13 +105,24 @@ text = "Play"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
 margin_top = 31.0
-margin_right = 77.0
+margin_right = 177.0
 margin_bottom = 58.0
 custom_styles/hover = ExtResource( 9 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/normal = ExtResource( 10 )
 custom_fonts/font = ExtResource( 4 )
 text = "Credits"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer"]
+margin_top = 62.0
+margin_right = 177.0
+margin_bottom = 104.0
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/hover_pressed = ExtResource( 10 )
+custom_styles/normal = ExtResource( 10 )
+custom_fonts/font = ExtResource( 4 )
+text = "Fullscreen"
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
@@ -168,4 +179,5 @@ anims/Rise = SubResource( 5 )
 stream = ExtResource( 7 )
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="toggled" from="VBoxContainer/CheckButton" to="." method="_on_CheckButton_toggled"]
 [connection signal="pressed" from="Panel/Back" to="." method="_on_Back_pressed"]

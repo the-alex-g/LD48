@@ -33,3 +33,11 @@ func _on_Credits_pressed()->void:
 func _on_Back_pressed()->void:
 	$AnimationPlayer.play("Fall")
 	_button.play()
+
+
+func _on_CheckButton_pressed():
+	pass # Replace with function body.
+
+
+func _on_CheckButton_toggled(button_pressed:bool)->void:
+	OS.window_fullscreen = button_pressed

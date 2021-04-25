@@ -48,7 +48,7 @@ const ABOVEGROUND_DEPENDENT_TILES := [
 const TILES_TO_RESOURCES := {
 	2:["dirt"], 8:["gold_ore", "stone"], 10:["iron_ore", "stone"], 20:["dirt"],
 }
-const GROUND_TILES := [0, 0, 0, 0, 0, 7, 9, 9,]
+const GROUND_TILES := [0, 0, 0, 0, 0,]# 7, 9, 9,]
 const TILES_WORTH_CROWNS := {4:1, 5:2, 6:2, 3:1, 11:-1, 12:-1, 13:-1, 14:-1, 15:6, 16:6,}
 const GOLD_SMELTERS := [11, 12]
 const IRON_SMELTERS := [13, 14]
@@ -152,40 +152,38 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 
 
 func generate_map(below:int = 0)->void:
-	var generation_range_x := _screensize_as_cells.x-below-1
-	var generation_range_y := _screensize_as_cells.y
+	var generation_range_y := _screensize_as_cells.y-below-1
+	var generation_range_x := _screensize_as_cells.x
 	var start_generating_at := below
 	var gold := 0
 	var iron := 0
 	# randomly generate tiles
 	for column in generation_range_x:
-		column += start_generating_at+1
 		for row in generation_range_y:
+			row += start_generating_at+1
 			var tile_index = randi()%GROUND_TILES.size()
 			var tile:int = GROUND_TILES[tile_index]
 			if tile == 7:
 				gold += 1
 			elif tile == 9:
 				iron += 1
-			set_cell(row, column, tile)
+			set_cell(column, row, tile)
 	# make sure there is at least 5 gold and 5 iron
 	while iron < 5 and gold < 5:
 		while iron < 5:
-			print("NOT ENOUGH IRON "+str(iron))
-			var x = randi()%int(generation_range_x-1)
-			x += start_generating_at+1
-			var y = randi()%9
-			set_cell(y,x,9)
+			var x = randi()%int(generation_range_x)
+			var y = randi()%int(generation_range_y)
+			y += start_generating_at+1
+			set_cell(x,y,9)
 			iron += 1
 		while gold < 5:
-			print("NOT ENOUGH GOLD "+str(gold))
-			var x = randi()%int(generation_range_x-1)
-			x += start_generating_at+1
-			var y = randi()%9
-			set_cell(y,x,7)
+			var x = randi()%int(generation_range_x)
+			var y = randi()%int(generation_range_y)
+			y += start_generating_at+1
+			set_cell(x,y,7)
 			gold += 1
 	# add the layer of grass tiles on top
-	for cell in generation_range_y:
+	for cell in generation_range_x:
 		set_cell(cell, start_generating_at, 19)
 
 

@@ -7,7 +7,7 @@ extends Node2D
 # constants
 
 # exported variables
-export var air_at_top := 3
+export var air_at_top := 4
 
 # variables
 var _ignore
@@ -70,12 +70,11 @@ func _on_Info_pressed():
 	if _info_shown:
 		_info_shown = false
 		_info.hide()
-		_time_left_on_pause = _game_timer.time_left
-		_game_timer.stop()
+		_game_timer.paused = false
 	else:
 		_info_shown = true
 		_info.show()
-		_game_timer.start(_time_left_on_pause)
+		_game_timer.paused = true
 
 
 func _on_GameTimer_timeout()->void:
