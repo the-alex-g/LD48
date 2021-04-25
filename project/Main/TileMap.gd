@@ -139,6 +139,7 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 			set_cellv(tile_position+Vector2(0,-2), EMPTY_UNDERGROUND_TILE)
 		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
 			set_cellv(tile_position+Vector2(0,-2), -1)
+		ResourceManager.population -= 2
 		_b_collapse.play()
 	tile = get_cellv(tile_position+Vector2(-1,-2))
 	if CITY.has(tile):
@@ -146,6 +147,7 @@ func _on_BreakTimer_timeout(tile_position:Vector2, timer:Timer)->void:
 			set_cellv(tile_position+Vector2(-1,-2), EMPTY_UNDERGROUND_TILE)
 		elif ABOVEGROUND_DEPENDENT_TILES.has(tile):
 			set_cellv(tile_position+Vector2(-1,-2), -1)
+		ResourceManager.population -= 2
 		_b_collapse.play()
 	# emit the signal
 	emit_signal("tile_destroyed")
@@ -224,6 +226,8 @@ func place(item_name:String, location:Vector2)->void:
 			ResourceManager.population += 1
 		if item_name == "Farm":
 			ResourceManager.food += 1
+		if item_name == "City":
+			ResourceManager.population += 2
 
 
 func check_smelters()->void:

@@ -61,8 +61,6 @@ func add_points()->void:
 func _draw()->void:
 	var size = area*32
 	draw_rect(Rect2(-size/2, size), Color(0.5, 0.5, 0.5, 0.5))
-	for pos in get_children():
-		draw_circle(pos.position, 3, Color.red)
 
 
 func done()->void:

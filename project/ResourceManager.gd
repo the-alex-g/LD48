@@ -47,8 +47,8 @@ func _process(_delta:float)->void:
 	base_crowns = crowns/modifier
 
 
-func save_high()->void:
-	config.set_value("save", "highscore", high_score)
+func save_high(new_high:int = high_score)->void:
+	config.set_value("save", "highscore", new_high)
 	_ignore = config.save(CONFIG_PATH)
 
 
