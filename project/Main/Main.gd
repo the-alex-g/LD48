@@ -84,3 +84,4 @@ func _on_GameTimer_timeout()->void:
 	yield(get_tree().create_timer(1), "timeout")
 	_game_over.visible = true
 	_game_over.update_display()
+	SelectionManager.can_be_selected = false

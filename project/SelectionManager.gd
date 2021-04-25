@@ -35,3 +35,9 @@ func deselect()->void:
 	selected.selected = false
 	selected.emit_signal("selection_state_changed", false)
 	selected = null
+
+
+func reset()->void:
+	selected = null
+	hovered = null
+	can_be_selected = true

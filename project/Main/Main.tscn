@@ -17,16 +17,16 @@
 [ext_resource path="res://Main/Normal.tres" type="StyleBox" id=15]
 [ext_resource path="res://Main/GameOver.tscn" type="PackedScene" id=16]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 20
 outline_size = 1
 outline_color = Color( 0.294118, 0, 0, 1 )
 font_data = ExtResource( 11 )
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.294118, 0, 0, 0.784314 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 13
 outline_size = 1
 outline_color = Color( 0.294118, 0, 0, 1 )
@@ -77,7 +77,7 @@ margin_top = 79.7354
 margin_right = 288.0
 margin_bottom = 96.7354
 grow_horizontal = 2
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "0"
 align = 1
 __meta__ = {
@@ -88,7 +88,7 @@ __meta__ = {
 visible = false
 margin_right = 292.0
 margin_bottom = 322.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -96,7 +96,7 @@ __meta__ = {
 [node name="Label" type="RichTextLabel" parent="Panel"]
 margin_right = 292.0
 margin_bottom = 322.0
-custom_fonts/normal_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 3 )
 text = "Building: costs 1 clay 
  gives 1 crown and 1 population
 Statue: costs 2 stone
@@ -116,7 +116,7 @@ City: costs 4 iron igots and 4 gold
  gives 6 crowns and 2 population
 
 If you dig out from under a building, the building will collapse.
-The resource icons from left to right: Iron ingots, gold ingots, gold ore, iron ore, clay, stone, dissaproval rating, crowns.
+The resource icons from left to right: Iron ingots, gold ingots, gold ore, iron ore, clay, stone, population,  dissaproval rating, food, crowns.
 
 The higher the disapproval rating is, the fewer crowns you get."
 
@@ -137,7 +137,7 @@ __meta__ = {
 }
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 90.0
 one_shot = true
 autostart = true
 

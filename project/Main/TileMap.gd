@@ -169,17 +169,18 @@ func generate_map(below:int = 0)->void:
 				iron += 1
 			set_cell(column, row, tile)
 	# make sure there is at least 5 gold and 5 iron
-	while iron < 5 and gold < 5:
-		while iron < 5:
-			var x = randi()%int(generation_range_x)
-			var y = randi()%int(generation_range_y)
-			y += start_generating_at+1
+	while iron < 5:
+		var x = randi()%9
+		var y = randi()%(10-start_generating_at-1)+start_generating_at+1
+		#y += start_generating_at+1
+		if get_cell(x,y) != 9 and get_cell(x,y) != 7:
 			set_cell(x,y,9)
 			iron += 1
-		while gold < 5:
-			var x = randi()%int(generation_range_x)
-			var y = randi()%int(generation_range_y)
-			y += start_generating_at+1
+	while gold < 5:
+		var x = randi()%9
+		var y = randi()%(10-start_generating_at-1)+start_generating_at+1
+		#y += start_generating_at+1
+		if get_cell(x,y) != 9 and get_cell(x,y) != 7:
 			set_cell(x,y,7)
 			gold += 1
 	# add the layer of grass tiles on top

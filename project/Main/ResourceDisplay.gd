@@ -19,6 +19,8 @@ onready var _gold_ore_label := $GoldOre/GoldOreLabel
 onready var _stone_label := $Stone/StoneLabel
 onready var _dirt_label := $Dirt/DirtLabel
 onready var _crown_label := $Crowns/CrownLabel
+onready var _dissaproval_label := $Dissaproval/DissaprovalLabel
+onready var _food_label := $Food/FoodLabel
 onready var _pop_label := $Pop/Poplabel
 
 
@@ -30,5 +32,7 @@ func _process(_delta:float)->void:
 	_gold_ore_label.text = str(ResourceManager.gold_ore)
 	_stone_label.text = str(ResourceManager.stone)
 	_crown_label.text = str(ResourceManager.base_crowns)
-	_pop_label.text = str(ResourceManager.modifier)
+	_dissaproval_label.text = str(ResourceManager.modifier)
+	_pop_label.text = str(ResourceManager.population)
+	_food_label.text = str(ResourceManager.food)
 
