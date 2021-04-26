@@ -9,33 +9,31 @@
 [ext_resource path="res://Font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Art/Farm.png" type="Texture" id=8]
 
-
-
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.305882, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.670588, 0, 0, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.368627, 0, 0, 1 )
+bg_color = Color( 0.670588, 0, 0, 1 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.670588, 0, 0, 1 )
+bg_color = Color( 0.368627, 0, 0, 1 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.670588, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.305882, 0, 0, 1 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -46,13 +44,13 @@ corner_radius_bottom_left = 5
 anchor_right = 1.0
 margin_right = -150.0
 margin_bottom = 42.0
-custom_styles/cursor = SubResource( 5 )
-custom_styles/selected_focus = SubResource( 1 )
-custom_styles/bg_focus = SubResource( 2 )
-custom_styles/selected = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/cursor = SubResource( 1 )
+custom_styles/selected_focus = SubResource( 2 )
+custom_styles/bg_focus = SubResource( 3 )
+custom_styles/selected = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
 custom_fonts/font = ExtResource( 7 )
-items = [ "Building", ExtResource( 2 ), false, "Statue", ExtResource( 3 ), false, "Farm", ExtResource( 8 ), false, "Iron Smelter", ExtResource( 5 ), false, "Gold Smelter", ExtResource( 4 ), false, "City", ExtResource( 6 ), false ]
+items = [ "House", ExtResource( 2 ), false, "Statue", ExtResource( 3 ), false, "Farm", ExtResource( 8 ), false, "Iron Smelter", ExtResource( 5 ), false, "Gold Smelter", ExtResource( 4 ), false, "City", ExtResource( 6 ), false ]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

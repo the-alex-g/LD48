@@ -7,7 +7,7 @@ signal drop_item(area, item)
 
 # constants
 const ITEM_AREA := {
-	"Building":Vector2(1,1),
+	"House":Vector2(1,1),
 	"Statue":Vector2(1,1),
 	"Gold Smelter":Vector2(2,1),
 	"Iron Smelter": Vector2(2,1),

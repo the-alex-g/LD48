@@ -6,7 +6,7 @@ extends Node
 
 # constants
 const RESOURCES_TO_BUILD := {
-	"Building":{"dirt":1},
+	"House":{"dirt":1},
 	"Statue":{"stone":2},
 	"Gold Smelter":{"stone":2, "gold_ore":1},
 	"Iron Smelter":{"stone":2, "iron_ore":1},

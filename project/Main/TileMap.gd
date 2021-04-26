@@ -24,7 +24,7 @@ const BREAKING_TILES_LOAD_PATHS := {
 const EMPTY_UNDERGROUND_TILE := 1
 const CELL_SIZE := 32
 const NAME_TO_TILE_ABV := {
-	"Building":3,
+	"House":3,
 	"Statue":5,
 	"Gold Smelter":12,
 	"Iron Smelter":14,
@@ -32,7 +32,7 @@ const NAME_TO_TILE_ABV := {
 	"Farm":18,
 }
 const NAME_TO_TILE_BLW := {
-	"Building":4,
+	"House":4,
 	"Statue":6,
 	"Gold Smelter":11,
 	"Iron Smelter":13,
